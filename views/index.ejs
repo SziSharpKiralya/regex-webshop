@@ -1,15 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <%= title %>
+        Webshop
     </title>
     <link rel="stylesheet" href="/style.css">
 </head>
+
 <body>
-    <h1><%= title %></h1>
-    Hello EJS!
+    <div class="container py-5">
+        <h1 class="text-center fw-bold mb-2">Webshop</h1>
+        <h2 class="text-center text-secondary mb-5">Our Products</h2>
+
+        <div id="PRODUCTS" class="product-grid">
+            <% products.forEach(product=> { %>
+                <div class="product-card">
+                    <% if (product.img) { %>
+                        <img src="<%= product.img %>" alt="<%= product.name %>" class="product-image">
+                        <% } %>
+                            <div class="product-content">
+                                <h3>
+                                    <%= product.name %>
+                                </h3>
+                                <p class="product-description">
+                                    <%= product.description %>
+                                </p>
+                                <div class="product-footer">
+                                    <span class="product-price">
+                                        <%= product.price %> Ft
+                                    </span>
+                                    <button onclick="AddToCart(product.id)" class="buy-button">
+                                        Kosárba →
+                                    </button>
+                                </div>
+                            </div>
+                </div>
+            <% }); %>
+        </div>
+    </div>
+    <div class="container py-5">
+        <div id="BUY" class="buy-card">
+            <h2>Vásárlás</h2>
+            <% if (message) {%>
+                <div class="success-message">
+                    <%= message %>
+                </div>
+            <% } %>
+            <h3>Vásárlói adatok:</h3>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="customerName">Teljes név:</label>
+                    <input type="text" name="customerName" placeholder="pl: Kiss Péter" required>
+                </div>
+                <div class="form-group">
+                    <label for="billingAddress">Számlázási cím:</label>
+                    <input type="text" name="billingAddress" placeholder="pl: Budapest 1234 Kis utca 5." required>
+                </div>
+                <div class="form-group">
+                    <label for="shippingAddress">Szállítási cím:</label>
+                    <input type="text" name="shippingAddress" placeholder="pl: Debrecen 4025 Kossuth utca 2." required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Telefonszám:</label>
+                    <input type="text" name="phoneNumber" placeholder="pl: +36301234567" required>
+                </div>
+                <h3>Bankkártya adatok:</h3>
+                <div class="form-group">
+                    <label for="cardNumber">Kártyaszám:</label>
+                    <input type="text" name="cardNumber" placeholder="pl: 1234 5678 9012 3456" required>
+                </div>
+                <div class="form-group">
+                    <label for="expiryDate">Lejárati dátum:</label>
+                    <input type="text" name="expiryDate" placeholder="pl: 12/24" required>
+                </div>
+                <div class="form-group">
+                    <label for="cvv">CVV:</label>
+                    <input type="text" name="cvv" placeholder="pl: 123" required>
+                </div>
+                <button type="submit" class="buy-button">
+                    Vásárlás →
+                </button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
